@@ -13,7 +13,7 @@ fz = 1/(2*pi) * exp(-0.5 * (XX.^2 + YY.^2));
 
 figure;
 contour(XX, YY, fz, 10);
-title('Gráfico de Contorno');
+title('Curvas de Nivel');
 
 figure;
 surf(XX, YY, fz);
