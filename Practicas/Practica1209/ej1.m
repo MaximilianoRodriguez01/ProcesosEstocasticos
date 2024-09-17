@@ -1,5 +1,5 @@
 close all
-clear all
+clear global
 
 n = 1000;
 

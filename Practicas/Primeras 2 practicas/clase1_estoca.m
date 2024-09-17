@@ -1,4 +1,4 @@
-clear all
+clear global
 close all
 %1
 

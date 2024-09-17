@@ -1,5 +1,5 @@
 close all
-clear all
+clear global
 
 U1=unifrnd(0,1,1, 200);
 U2=unifrnd(0,2,1, 200);
