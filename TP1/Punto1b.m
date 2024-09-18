@@ -18,18 +18,12 @@ MeanX = mean(X);
 x = linspace(min(X),max(X),N);
 
 figure
-histogram(X,bines, 'Normalization', 'pdf');
+histogram(X,bines, 'Normalization', 'pdf', 'FaceColor', '#dad5b7');
 hold on
 title('Histograma de X');
 y = normpdf(x,MeanX,sqrt(VarX));
-plot(x,y,'r');
-xline(MeanX, '--');
-xline(MeanX-sigma, '--', 'Color', 'g');
-xline(MeanX + sigma, '--', 'Color', 'b');
-legend('Histograma de X','Distribucion Normal de X', 'Media', 'Media - Sigma', 'Media + Sigma');
-
-
-
-
-
-
+plot(x,y,'Color', '#665e52', 'LineWidth', 1.25);
+xline(MeanX, '--', 'Color', 'black', 'LineWidth', 1.15);
+xline(MeanX-sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
+xline(MeanX + sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
+legend('Histograma de X','Distribución Normal X', '\mu', '\mu \pm \sigma^2');

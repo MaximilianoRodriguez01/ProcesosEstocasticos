@@ -25,30 +25,29 @@ x2 = linspace(min(Z2),max(Z2),N);
 
 figure
 subplot(2,1,1);
-histogram(Z1,bines, 'Normalization', 'pdf');
+histogram(Z1,bines, 'Normalization', 'pdf', 'FaceColor', '#c0688d');
 hold on
-title('Histograma de Z1');
+title('Histograma de Z_1');
 y1 = normpdf(x1,MeanZ1,sqrt(VarZ1));
 
-plot(x1,y1,'r');
-legend('Histograma de Z1','Distribucion Normal de Z1');
+plot(x1,y1,'Color', '#75234a', 'LineWidth', 1.25);  
+legend('Histograma de Z_1','Distribución Normal Z_1');
 
 subplot(2,1,2)
-histogram(Z2,bines, 'Normalization', 'pdf');
+histogram(Z2, bines, 'Normalization', 'pdf', 'FaceColor', '#a9e2ac'); 
 hold on
 y2 = normpdf(x2,MeanZ2,sqrt(VarZ2));
 
-
-title('Histograma de Z2');
-plot(x2,y2,'r');
-legend('Histograma de Z2','Distribucion Normal de Z2');
+title('Histograma de Z_2');
+plot(x2, y2, 'Color', '#4a893d', 'LineWidth', 1.25);
+legend('Histograma de Z_2','Distribución Normal Z_2');
 
 
 figure();
-scatter(Z1,Z2);
-title('Scatter plot de Z1 y Z2');
-xlabel('Z1');
-ylabel('Z2');
+scatter(Z1,Z2, 'MarkerEdgeColor', '#0c3fc8');
+title('Gráfico de Dispersión: Z_2 vs Z_1');
+xlabel('Z_1');
+ylabel('Z_2');
 
 coeficiente = corrcoef(Z1,Z2);
 
