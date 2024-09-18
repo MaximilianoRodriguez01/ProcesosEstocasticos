@@ -1,11 +1,10 @@
 close all
 clear all
 
-N = 1000;
+N = 10000;
 
 %Regla de la Raiz cuadrada
-bines = ceil (sqrt(N));
-
+bines = ceil(sqrt(N));
 
 U1 = rand(1,N);	
 U2 = rand(1,N);	
