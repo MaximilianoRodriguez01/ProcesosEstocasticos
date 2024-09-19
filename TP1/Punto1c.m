@@ -1,7 +1,7 @@
 close all
 clear all
 
-N = 1000;
+N = 10000;
 
 %Regla de la Raiz cuadrada
 bines = ceil (sqrt(N));
@@ -26,51 +26,45 @@ y1 = linspace(min(X1),max(X1),N);
 y2 = linspace(min(X2),max(X2),N);
 y3 = linspace(min(X3),max(X3),N);
 
-figure
+%Histograma de X1
+figure();
 subplot(3,1,1);
-histogram(X1,bines, 'Normalization', 'pdf');
+histogram(X1,bines, 'Normalization', 'pdf', 'FaceColor', '#c74f54');
 hold on
 title('Histograma de X1');
 z1 = normpdf(y1,MeanX1,sqrt(VarX1));
+plot(y1,z1,'r','LineWidth', 1.25, 'Color', '#75234a');
 
-plot(y1,z1,'r');
-xline(MeanX1, '--');
-xline(MeanX1-sqrt(VarX1), '--', 'Color', 'g');
-xline(MeanX1 + sqrt(VarX1), '--', 'Color', 'b');
+xline(MeanX1, '--', 'Color', '#031D1E', 'LineWidth', 1.25);
+xline(MeanX1-sqrt(VarX1), '--', 'Color', '#481380', 'LineWidth', 1.25);
+xline(MeanX1 + sqrt(VarX1), '--', 'Color', '#481380', 'LineWidth', 1.25);
 
-xline(0, '--', 'Color', 'k');
-xline(0+sqrt(2), '--', 'Color', 'm');
-xline(0-sqrt(2), '--', 'Color', 'c');
+legend('Histograma de X1','Distribucion Normal de X1', '\mu', '\mu \pm \sigma^2');
 
-legend('Histograma de X1','Distribucion Normal de X1', 'Media estimada', 'Media estimada - Sigma estimado', 'Media estimada + Sigma estimado', 'Media teorica', 'Media teorica + Sigma teorica', 'Media teorica - Sigma teorica');
-
+%Histograma de X2
 subplot(3,1,2);
-histogram(X2,bines, 'Normalization', 'pdf');
+histogram(X2,bines, 'Normalization', 'pdf', 'FaceColor', '#b5838d');
 hold on
 title('Histograma de X2');
 z2 = normpdf(y2,MeanX2,sqrt(VarX2));
-plot(y2,z2,'r');
-xline(MeanX2, '--');
-xline(MeanX2-sqrt(VarX2), '--', 'Color', 'g');
-xline(MeanX2 + sqrt(VarX2), '--', 'Color', 'b');
-xline(1, '--', 'Color', 'k');
-xline(1+sqrt(2), '--', 'Color', 'm');
-xline(1-sqrt(2), '--', 'Color', 'c');
-legend('Histograma de X2','Distribucion Normal de X2', 'Media estimada', 'Media estimada - Sigma estimado', 'Media estimada + Sigma estimado', 'Media teorica', 'Media teorica + Sigma teorica', 'Media teorica - Sigma teorica');
+plot(y2,z2,'r','LineWidth', 1.25, 'Color', '#75234a');
+xline(MeanX2, '--', 'Color', '#031D1E', 'LineWidth', 1.75);
+xline(MeanX2-sqrt(VarX2), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX2 + sqrt(VarX2), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+legend('Histograma de X2','Distribucion Normal de X2', '\mu', '\mu \pm \sigma^2');
 
+%Histograma de X3
 subplot(3,1,3);
-histogram(X3,bines, 'Normalization', 'pdf');
+histogram(X3,bines, 'Normalization', 'pdf', 'FaceColor', '#FFB4A2');
 hold on
 title('Histograma de X3');
 z3 = normpdf(y3,MeanX3,sqrt(VarX3));
-plot(y3,z3,'r');
-xline(MeanX3, '--');
-xline(MeanX3-sqrt(VarX3), '--', 'Color', 'g');
-xline(MeanX3 + sqrt(VarX3), '--', 'Color', 'b');
-xline(1, '--', 'Color', 'k');
-xline(1+sqrt(4), '--', 'Color', 'm');
-xline(1-sqrt(4), '--', 'Color', 'c');
-legend('Histograma de X3','Distribucion Normal de X3', 'Media estimada', 'Media estimada - Sigma estimado', 'Media estimada + Sigma estimado', 'Media teorica', 'Media teorica + Sigma teorica', 'Media teorica - Sigma teorica');
+plot(y3,z3,'r','LineWidth', 1.25, 'Color', '#75234a');
+xline(MeanX3, '--', 'Color', 'k', 'LineWidth', 1.75);
+xline(MeanX3-sqrt(VarX3), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX3 + sqrt(VarX3), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+
+legend('Histograma de X3','Distribucion Normal de X3', '\mu', '\mu \pm \sigma^2');
 
 
 
