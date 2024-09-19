@@ -36,8 +36,8 @@ z1 = normpdf(y1,MeanX1,sqrt(VarX1));
 plot(y1,z1,'r','LineWidth', 1.25, 'Color', '#75234a');
 
 xline(MeanX1, '--', 'Color', '#031D1E', 'LineWidth', 1.25);
-xline(MeanX1-sqrt(VarX1), '--', 'Color', '#481380', 'LineWidth', 1.25);
-xline(MeanX1 + sqrt(VarX1), '--', 'Color', '#481380', 'LineWidth', 1.25);
+xline(MeanX1-sqrt(VarX1), ':', 'Color', '#481380', 'LineWidth', 1.25);
+xline(MeanX1 + sqrt(VarX1), ':', 'Color', '#481380', 'LineWidth', 1.25);
 
 legend('Histograma de X1','Distribucion Normal de X1', '\mu', '\mu \pm \sigma^2');
 
@@ -49,8 +49,8 @@ title('Histograma de X2');
 z2 = normpdf(y2,MeanX2,sqrt(VarX2));
 plot(y2,z2,'r','LineWidth', 1.25, 'Color', '#75234a');
 xline(MeanX2, '--', 'Color', '#031D1E', 'LineWidth', 1.75);
-xline(MeanX2-sqrt(VarX2), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
-xline(MeanX2 + sqrt(VarX2), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX2-sqrt(VarX2), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX2 + sqrt(VarX2), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
 legend('Histograma de X2','Distribucion Normal de X2', '\mu', '\mu \pm \sigma^2');
 
 %Histograma de X3
@@ -61,8 +61,8 @@ title('Histograma de X3');
 z3 = normpdf(y3,MeanX3,sqrt(VarX3));
 plot(y3,z3,'r','LineWidth', 1.25, 'Color', '#75234a');
 xline(MeanX3, '--', 'Color', 'k', 'LineWidth', 1.75);
-xline(MeanX3-sqrt(VarX3), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
-xline(MeanX3 + sqrt(VarX3), '--', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX3-sqrt(VarX3), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX3 + sqrt(VarX3), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
 
 legend('Histograma de X3','Distribucion Normal de X3', '\mu', '\mu \pm \sigma^2');
 
