@@ -21,7 +21,7 @@ MeanX = mean(X);
 
 x = linspace(min(X),max(X),N);
 
-figure
+figure(1);
 histogram(X,bines, 'Normalization', 'pdf', 'FaceColor', '#dad5b7');
 hold on
 title('Histograma de X');
@@ -31,3 +31,5 @@ xline(MeanX, '--', 'Color', 'black', 'LineWidth', 1.15);
 xline(MeanX-sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
 xline(MeanX + sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
 legend('Histograma de X','Distribución Normal X', '\mu', '\mu \pm \sigma^2');
+
+saveas(1, 'TP1/Images/1b_Normal.png');

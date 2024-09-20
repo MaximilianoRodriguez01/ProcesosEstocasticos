@@ -29,7 +29,7 @@ end
 
 y = binopdf(0:1, 1, 2/9);
 
-figure();
+figure(1);
 histogram(exitos, bines, 'Normalization', 'probability');
 title('Histograma de la variable Bernoulli D');
 xlabel('D');
@@ -37,6 +37,8 @@ ylabel('Probabilidad');
 hold on
 stem(0:1, y, '-o');
 legend('Histograma de D','Distribucion Bernoulli de D');
+
+saveas(1, 'TP1/Images/1d_Bernoulli.png');
 
 
 

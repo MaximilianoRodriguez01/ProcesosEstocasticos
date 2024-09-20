@@ -51,12 +51,14 @@ for i=1:6
     fprintf("Error cuadratico medio (N=%d): %.15f\n", N_d(i), MSE(i));
 end
 
-figure();
+figure(1);
 loglog(N_d,MSE,'-o')
 grid on
 xlabel('# de muestras')
 ylabel('MSE')
-title('Error cuadratico medio en función de N')
+title('Error cuadrático medio en función de N')
+
+saveas(1, 'TP1/Images/2d_MSE.png');
 
 % Definición de la densidad
 function densidad = fx(x, media, varianza)

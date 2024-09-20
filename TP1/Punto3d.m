@@ -37,7 +37,7 @@ exitostotales = sum(exitos,1);
 %y = pdf('Binomial',turnos, 2/9);
 y = binopdf(0:turnos, turnos, 2/9);
 
-figure();
+figure(1);
 histogram(exitostotales, bines, 'Normalization', 'probability');
 title('Histograma de la variable Binomial B');
 xlabel('B');
@@ -46,6 +46,8 @@ grid on
 hold on
 stem(0:turnos, y, '-o');
 legend('Histograma de B','Distribucion Binomial de B');
+
+saveas(1, 'TP1/Images/1d_Binomial.png');
 
 
 

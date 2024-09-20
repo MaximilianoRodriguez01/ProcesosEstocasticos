@@ -27,44 +27,44 @@ y2 = linspace(min(X2),max(X2),N);
 y3 = linspace(min(X3),max(X3),N);
 
 %Histograma de X1
-figure();
+figure('Position', [100, 100, 1200, 800]); % Aumentar el tamaño de la figura
+
 subplot(3,1,1);
-histogram(X1,bines, 'Normalization', 'pdf', 'FaceColor', '#c74f54');
+histogram(X1, bines, 'Normalization', 'pdf', 'FaceColor', '#c74f54');
 hold on
 title('Histograma de X1');
-z1 = normpdf(y1,MeanX1,sqrt(VarX1));
-plot(y1,z1,'r','LineWidth', 1.25, 'Color', '#75234a');
-
+z1 = normpdf(y1, MeanX1, sqrt(VarX1));
+plot(y1, z1, 'r', 'LineWidth', 1.25, 'Color', '#75234a');
 xline(MeanX1, '--', 'Color', '#031D1E', 'LineWidth', 1.25);
-xline(MeanX1-sqrt(VarX1), ':', 'Color', '#481380', 'LineWidth', 1.25);
+xline(MeanX1 - sqrt(VarX1), ':', 'Color', '#481380', 'LineWidth', 1.25);
 xline(MeanX1 + sqrt(VarX1), ':', 'Color', '#481380', 'LineWidth', 1.25);
-
-legend('Histograma de X1','Distribucion Normal de X1', '\mu', '\mu \pm \sigma^2');
+legend('Histograma de X1', 'Distribucion Normal de X1', '\mu', '\mu \pm \sigma^2');
 
 %Histograma de X2
 subplot(3,1,2);
-histogram(X2,bines, 'Normalization', 'pdf', 'FaceColor', '#b5838d');
+histogram(X2, bines, 'Normalization', 'pdf', 'FaceColor', '#b5838d');
 hold on
 title('Histograma de X2');
-z2 = normpdf(y2,MeanX2,sqrt(VarX2));
-plot(y2,z2,'r','LineWidth', 1.25, 'Color', '#75234a');
+z2 = normpdf(y2, MeanX2, sqrt(VarX2));
+plot(y2, z2, 'r', 'LineWidth', 1.25, 'Color', '#75234a');
 xline(MeanX2, '--', 'Color', '#031D1E', 'LineWidth', 1.75);
-xline(MeanX2-sqrt(VarX2), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX2 - sqrt(VarX2), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
 xline(MeanX2 + sqrt(VarX2), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
-legend('Histograma de X2','Distribucion Normal de X2', '\mu', '\mu \pm \sigma^2');
+legend('Histograma de X2', 'Distribucion Normal de X2', '\mu', '\mu \pm \sigma^2');
 
 %Histograma de X3
 subplot(3,1,3);
-histogram(X3,bines, 'Normalization', 'pdf', 'FaceColor', '#FFB4A2');
+histogram(X3, bines, 'Normalization', 'pdf', 'FaceColor', '#FFB4A2');
 hold on
 title('Histograma de X3');
-z3 = normpdf(y3,MeanX3,sqrt(VarX3));
-plot(y3,z3,'r','LineWidth', 1.25, 'Color', '#75234a');
+z3 = normpdf(y3, MeanX3, sqrt(VarX3));
+plot(y3, z3, 'r', 'LineWidth', 1.25, 'Color', '#75234a');
 xline(MeanX3, '--', 'Color', 'k', 'LineWidth', 1.75);
-xline(MeanX3-sqrt(VarX3), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
+xline(MeanX3 - sqrt(VarX3), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
 xline(MeanX3 + sqrt(VarX3), ':', 'Color', '#c1224f', 'LineWidth', 1.75);
+legend('Histograma de X3', 'Distribucion Normal de X3', '\mu', '\mu \pm \sigma^2');
 
-legend('Histograma de X3','Distribucion Normal de X3', '\mu', '\mu \pm \sigma^2');
+saveas(gcf, 'TP1/Images/1c_Normal.png'); % Guardar la figura actual
 
 
 
