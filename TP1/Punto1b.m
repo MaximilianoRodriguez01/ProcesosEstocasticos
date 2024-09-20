@@ -9,8 +9,12 @@ bines = ceil (sqrt(N));
 sigma = rand(1,1);
 mu = rand(1,1);
 
+U1 = rand(1,N);
+U2 = rand(1,N);
 
-X = randn(1,N)*sigma + mu;
+Z = sqrt(-2*log(U1)).*cos(2*pi*U2);
+
+X = Z*sigma + mu;
 
 VarX = var(X);
 MeanX = mean(X);
