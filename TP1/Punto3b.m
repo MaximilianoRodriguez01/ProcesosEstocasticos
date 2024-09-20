@@ -30,19 +30,19 @@ end
 y = binopdf(0:1, 1, 2/9);
 
 figure(1);
-histogram(exitos, bines, 'Normalization', 'probability');
+histogram(exitos, bines, 'Normalization', 'probability', 'FaceColor', '#a9e2ac');
 title('Histograma de la variable Bernoulli D');
 xlabel('D');
 ylabel('Probabilidad');
 hold on
-stem(0:1, y, '-o');
+stem(0:1, y, '-o', 'Color', '#c74f54', 'linewidth', 1);
 legend('Histograma de D','Distribucion Bernoulli de D');
 
 if ~exist('TP1/Images', 'dir')
 	mkdir('TP1/Images');
 end
 
-saveas(1, 'TP1/Images/1d_Bernoulli.png');
+saveas(1, 'TP1/Images/3b_Bernoulli.png');
 
 
 

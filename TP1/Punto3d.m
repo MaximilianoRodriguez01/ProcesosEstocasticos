@@ -38,20 +38,20 @@ exitostotales = sum(exitos,1);
 y = binopdf(0:turnos, turnos, 2/9);
 
 figure(1);
-histogram(exitostotales, bines, 'Normalization', 'probability');
+histogram(exitostotales, bines, 'Normalization', 'probability', 'FaceColor', '#a9e2ac');
 title('Histograma de la variable Binomial B');
 xlabel('B');
 ylabel('Probabilidad');
 grid on
 hold on
-stem(0:turnos, y, '-o');
+stem(0:turnos, y, '-o', 'color', '#c74f54', 'linewidth', 0.5);
 legend('Histograma de B','Distribucion Binomial de B');
 
 if ~exist('TP1/Images', 'dir')
 	mkdir('TP1/Images');
 end
 
-saveas(1, 'TP1/Images/1d_Binomial.png');
+saveas(1, 'TP1/Images/3d_Binomial.png');
 
 
 
