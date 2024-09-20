@@ -38,6 +38,10 @@ hold on
 stem(0:1, y, '-o');
 legend('Histograma de D','Distribucion Bernoulli de D');
 
+if ~exist('TP1/Images', 'dir')
+	mkdir('TP1/Images');
+end
+
 saveas(1, 'TP1/Images/1d_Bernoulli.png');
 
 

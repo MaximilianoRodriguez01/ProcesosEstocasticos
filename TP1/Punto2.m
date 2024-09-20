@@ -58,6 +58,10 @@ xlabel('# de muestras')
 ylabel('MSE')
 title('Error cuadrático medio en función de N')
 
+if ~exist('TP1/Images', 'dir')
+	mkdir('TP1/Images');
+end
+
 saveas(1, 'TP1/Images/2d_MSE.png');
 
 % Definición de la densidad

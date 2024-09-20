@@ -47,6 +47,10 @@ hold on
 stem(0:turnos, y, '-o');
 legend('Histograma de B','Distribucion Binomial de B');
 
+if ~exist('TP1/Images', 'dir')
+	mkdir('TP1/Images');
+end
+
 saveas(1, 'TP1/Images/1d_Binomial.png');
 
 

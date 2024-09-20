@@ -32,4 +32,8 @@ xline(MeanX-sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
 xline(MeanX + sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
 legend('Histograma de X','Distribución Normal X', '\mu', '\mu \pm \sigma^2');
 
+if ~exist('TP1/Images', 'dir')
+	mkdir('TP1/Images');
+end
+
 saveas(1, 'TP1/Images/1b_Normal.png');
