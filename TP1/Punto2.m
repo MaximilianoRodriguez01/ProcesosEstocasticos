@@ -82,6 +82,7 @@ xlabel('# de muestras')
 ylabel('MSE')
 title('Error cuadrático medio en función de N')
 axis([3 4e6 1e-9 1e-2])
+xticks(N_d)
 
 if ~exist('TP1/Images', 'dir')
 	mkdir('TP1/Images');
