@@ -28,8 +28,8 @@ title('Histograma de X');
 y = normpdf(x,MeanX,sqrt(VarX));
 plot(x,y,'Color', '#665e52', 'LineWidth', 1.25);
 xline(MeanX, '--', 'Color', 'black', 'LineWidth', 1.15);
-xline(MeanX-sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
-xline(MeanX + sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.5);
-legend('Histograma de X','Distribución Normal X', '\mu', '\mu \pm \sigma^2');
+xline(MeanX-sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.75);
+xline(MeanX + sigma, ':', 'Color', '#3a5f6f', 'LineWidth', 1.75);
+legend('Histograma de X', sprintf('X \\sim N(\\mu_{X} = %.2f, \\sigma^{2}_{X} = %.2f)', MeanX, VarX), '\mu_{X}', '\mu_X \pm \sigma_{X}');
 
 saveas(1, 'TP1/Images/1b_Normal.png');
