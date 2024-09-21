@@ -19,6 +19,28 @@ for k=1:3
     gx = fx(x, media, varianza);
     % Se calcula la aproximacion de la integral
     I(k) = (b-a)*mean(gx);
+    
+    % Graficos
+    x1 = linspace(-4,8,N);
+    y1 = normpdf(x1,media,sqrt(varianza));
+    l = size(y1);
+    
+    figure(k);
+    subplot(2,1,1)
+    hold on
+    plot(x1,y1,'linewidth',1.5,'color','black')
+    area(x,gx,'facecolor','#c74f54','facealpha',0.5)
+    legend('Función de densidad', 'Area de integración')
+    axis([-4 8 0 0.3])
+    
+    subplot(2,1,2)
+    hold on
+    plot(x1,y1,'linewidth',1.5,'color','black')
+    stem(x(1:100:end),gx(1:100:end),'color','#c74f54')
+    xlim([-4,8])
+    legend('Función de densidad', '100 Muestras aleatorias')
+    title(['I = ',num2str(I(k),15)])
+    axis([-4 8 0 0.3])
 end
 
 fprintf("Puntos a, b y c:\nIa = %.15f\nIb = %.15f\nIc = %.15f\n", I(1), I(2), I(3));
@@ -51,14 +73,25 @@ for i=1:6
     fprintf("Error cuadratico medio (N=%d): %.15f\n", N_d(i), MSE(i));
 end
 
-figure(1);
-loglog(N_d,MSE,'-o')
+figure(4);
+loglog(N_d,MSE,'color','black','linewidth',1,'marker','o','markersize',5)
 grid on
+text(N_d(1:3),MSE(1:3),num2str(MSE(1:3),'%10.3e\n'),'horizontalAlignment','left','verticalAlignment','bottom','color','#c74f54')
+text(N_d(4:6),MSE(4:6),num2str(MSE(4:6),'%10.3e\n'),'horizontalAlignment','right','verticalAlignment','top','color','#c74f54')
 xlabel('# de muestras')
 ylabel('MSE')
 title('Error cuadrático medio en función de N')
+axis([3 4e6 1e-9 1e-2])
+xticks(N_d)
 
-saveas(1, 'TP1/Images/2d_MSE.png');
+if ~exist('TP1/Images', 'dir')
+	mkdir('TP1/Images');
+end
+
+% saveas(1, 'TP1/Images/2a.png');
+% saveas(2, 'TP1/Images/2b.png');
+% saveas(3, 'TP1/Images/2c.png');
+% saveas(4, 'TP1/Images/2d_MSE.png');
 
 % Definición de la densidad
 function densidad = fx(x, media, varianza)
