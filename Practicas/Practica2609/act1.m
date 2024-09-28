@@ -14,41 +14,43 @@ data = double(img_gris);
 tira = data(:);
 
 %hago una matriz de 2xn tomando cada 2 valores de la tira
-tira_ordenada = reshape(tira, 2, []);
+X = reshape(tira, 2, []);
 
 %Hallar la matriz de covarianza de X
-cov_X = cov(tira_ordenada');
+cov_X = cov(X');
 
 %Hallar los autovalores y autovectores de la matriz de covarianza
 [Px, LAMBDA] = eig(cov_X);
 
-Y = Px'*tira_ordenada;
+Y = Px' * X;
 
 
 figure();
-scatter(tira_ordenada(1,:), tira_ordenada(2,:));
+scatter(X(1,:), X(2,:));
+title('Original');
 
 figure();
 scatter(Y(1,:), Y(2,:));
+title('Transformada');
 
 %Ordeno autovectores y autovalores
-
 [Lambda_sorted, idx] = sort(diag(LAMBDA), 'descend');
-
 Px_sorted = Px(:, idx);
 
 
 % le quiero sacar la ultima componente a PX
-
-PYR = Px_sorted(:, 1);
+V = Px_sorted(:, 1);
 
 LAMBDA2 = diag(Lambda_sorted);
 
-YR = Px_sorted'*tira_ordenada + mean(tira_ordenada);
+YR = V'*(X - mean(X));
 
+%Reconstruir X a partir de YR
+XR = V*YR + mean(X);
 
 %Rearmar imagen
 figure();
-img_out = reshape(YR', size(img_gris));
+[fil, col] = size(img_gris);
+img_out = reshape(XR, [fil col]);
 
 imshow(uint8(img_out));
