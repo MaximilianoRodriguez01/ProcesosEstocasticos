@@ -1,9 +1,3 @@
-% Instalar y cargar el paquete de imágenes en Octave
-if exist('OCTAVE_VERSION', 'builtin')
-    pkg install -forge image;
-    pkg load image;
-end
-
 clear variables
 close all
 
