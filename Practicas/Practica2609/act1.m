@@ -24,15 +24,6 @@ cov_X = cov(X');
 
 Y = Px' * X;
 
-
-figure();
-scatter(X(1,:), X(2,:));
-title('Original');
-
-figure();
-scatter(Y(1,:), Y(2,:));
-title('Transformada');
-
 %Ordeno autovectores y autovalores
 [Lambda_sorted, idx] = sort(diag(LAMBDA), 'descend');
 Px_sorted = Px(:, idx);
@@ -49,8 +40,19 @@ YR = V'*(X - mean(X));
 XR = V*YR + mean(X);
 
 %Rearmar imagen
-figure();
+
+figure(1);
+scatter(X(1,:), X(2,:));
+title('Original');
+
+figure(2);
+scatter(Y(1,:), Y(2,:));
+title('Transformada');
+
+figure(3);
 [fil, col] = size(img_gris);
 img_out = reshape(XR, [fil col]);
-
 imshow(uint8(img_out));
+title("Foto Comprimida");
+
+saveas(gcf, 'img_out.jpg');
