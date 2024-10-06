@@ -1,5 +1,5 @@
 close all
-clear all
+clear variables
 
 n = 1000;
 m = 2000;
@@ -27,14 +27,13 @@ for i = 1:5
     title(['Bernoulli de orden ', num2str(i)]);
 end
 
-Poisson = zeros(5, n);
+Poisson = zeros(m, n);
 
-for i = 1:5
+for i = 1:m
     for j = 1:n
-        if X(i, j) == 1 && j == 0
+        if X(i, j) == 1 && j == 1
             Poisson(i, j) = 1;
-        end
-        if X(i, j) == 1
+        elseif X(i, j) == 1
             Poisson(i, j) = Poisson(i, j-1) + 1;
         elseif j > 1
             Poisson(i, j) = Poisson(i, j-1);
@@ -44,9 +43,17 @@ end
 
 % Grafico las primeras 5 Poisson
 figure();
+title(['Primeras 5 realizaciones de un Proceso de Poisson con \lambda = ', num2str(lambda)]);
 for i = 1:5
-    subplot(5, 1, i);
-    plot(Poisson(i, :));
-    title(['Poisson de orden ', num2str(i)]);
+    plot(Poisson(i, :), 'LineWidth', 2, 'LineStyle', '--');
+    hold on
 end
+legend('realiz. 1', 'realiz. 2', 'realiz. 3', 'realiz. 4', 'realiz. 5');
+
+figure();
+title(['Media de un Proceso de Poisson con \lambda = ', num2str(lambda)]);
+plot(mean(Poisson(1:n,:)), 'LineWidth', 2, 'LineStyle', '--');
+
+
+
 
