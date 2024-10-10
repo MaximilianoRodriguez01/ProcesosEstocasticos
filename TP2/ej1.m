@@ -24,9 +24,16 @@ bines = ceil(sqrt(largo_total));
 figure(1);
 histogram(tau, bines, 'Normalization', 'pdf', 'FaceColor', '#ffd0ff');
 title('Histograma de los intervalos entre detecciones');
-subtitle(sprintf('Esperanza: %.2f, Varianza: %.2f', esperanza_tau, varianza_tau));
+subtitle(sprintf('Esperanza: %d, Varianza: %d', esperanza_tau, varianza_tau));
+
 hold on
+
 plot(x, exp, 'LineWidth', 2, 'Color', '#ff00ff');
+legend('Histograma', sprintf('Exponencial, \\lambda = %d', 1/esperanza_tau));
+grid on;
+xlabel('Intervalos entre detecciones');
+ylabel('Probabilidad');
+
 hold off
 
 
