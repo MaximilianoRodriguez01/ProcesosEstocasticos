@@ -16,9 +16,13 @@ varianza_tau = var(tau);
 x = linspace(0, max(tau), 100);
 exp = exppdf(x, esperanza_tau);
 
+largo_total = length(tau);
+
+bines = ceil(sqrt(largo_total));
+
 % Histograma de los tau
 figure(1);
-histogram(tau, 'Normalization', 'pdf', 'FaceColor', '#ffd0ff');
+histogram(tau, bines, 'Normalization', 'pdf', 'FaceColor', '#ffd0ff');
 title('Histograma de los intervalos entre detecciones');
 subtitle(sprintf('Esperanza: %.2f, Varianza: %.2f', esperanza_tau, varianza_tau));
 hold on
