@@ -38,7 +38,7 @@ histogram(eventos, bines, 'Normalization', 'probability', 'EdgeColor', '#020122'
 title('Histograma');
 xlabel('Cantidad de eventos por intervalo');
 ylabel('Probabilidad');
-legend('Histograma', sprintf('PMF, N(t) ~ Poisson(\\lambda * t = %.2f)', mu_Nt));
+legend('Histograma');
 grid on;
 
 % --------------------------- ITEM C ---------------------------
@@ -59,4 +59,3 @@ ylabel('Probabilidad');
 legend('Histograma', sprintf('PMF, N(t) ~ Poisson(\\lambda * t = %.2f)', mu_Nt));
 grid on;
 hold off
-
