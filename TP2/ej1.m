@@ -1,11 +1,10 @@
 clear variables
 close all
 
-data = readmatrix('geiger.csv');
-
-instante_detectado = data(:,1)';
-
 % --------------------------- ITEM A ---------------------------
+
+data = readmatrix('geiger.csv');
+instante_detectado = data(:,1)';
 
 %27 minutos a microsegundos
 
