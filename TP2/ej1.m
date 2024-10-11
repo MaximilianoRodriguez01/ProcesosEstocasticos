@@ -53,15 +53,3 @@ xlabel('Intervalos entre detecciones');
 ylabel('Probabilidad');
 
 hold off
-
-
-
-
-
-
-
-
-
-
-
-
