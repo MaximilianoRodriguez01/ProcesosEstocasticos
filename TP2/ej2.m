@@ -35,8 +35,9 @@ bines = ceil(sqrt(M));
 %Graficamos el histograma
 figure(1);
 histogram(eventos, bines, 'Normalization', 'probability', 'EdgeColor', '#020122', 'FaceColor', '#84BC9C');
-title('Histograma');
-xlabel('Cantidad de eventos por intervalo');
+title('Histograma de eventos detectados por intervalo');
+subtitle(sprintf('\\mu_{N(t)} \\approx %.2f, \\sigma^{2}_{N(t)} \\approx %.2f', mu_Nt, var_Nt));
+xlabel('Número de eventos por intervalo');
 ylabel('Probabilidad');
 legend('Histograma');
 grid on;
@@ -54,8 +55,8 @@ histogram(eventos, bines, 'Normalization', 'probability', 'EdgeColor', '#020122'
 hold on
 stem(valores_posibles, pmf_teorica, 'filled', 'LineWidth', 2, 'Color', '#092327');
 title('Histograma vs PMF teórica');
-xlabel('Cantidad de eventos por intervalo');
+xlabel('Número de eventos por intervalo');
 ylabel('Probabilidad');
-legend('Histograma', sprintf('PMF, N(t) ~ Poisson(\\lambda * t = %.2f)', mu_Nt));
+legend('Histograma', sprintf('PMF, N(t) ~ Poi(\\lambda t \\approx %.2f)', mu_Nt));
 grid on;
 hold off
