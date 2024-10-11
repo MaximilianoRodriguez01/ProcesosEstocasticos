@@ -18,7 +18,7 @@ eventos = zeros(M,1);
 for j=1:M
     for i=1:length(instante_detectado)
         if(instante_detectado(1, i) > (j-1) * T) && (instante_detectado(1, i) <= j * T)
-            eventos(j, 1) = eventos(j, 1)+1;
+            eventos(j, 1) = eventos(j, 1) + 1;
         end
     end
 end
