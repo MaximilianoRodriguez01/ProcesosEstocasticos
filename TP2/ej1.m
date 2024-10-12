@@ -6,8 +6,7 @@ close all
 data = readmatrix('geiger.csv');
 instante_detectado = data(:,1)';
 
-%27 minutos a microsegundos
-
+%Pasaje de 27 minutos a microsegundos
 tiempo_total = 1.64e9;
 
 %Tiempo entre pulsos
@@ -35,7 +34,6 @@ grid on;
 % --------------------------- ITEM C ---------------------------
 
 %Obtenemos la PDF teorica teniendo en cuenta que el soporte son todos los valores hasta el máximo.
-
 x = linspace(0, max(tau), 100);
 exp = exppdf(x, esperanza_tau);
 

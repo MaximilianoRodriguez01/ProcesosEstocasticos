@@ -45,7 +45,6 @@ grid on;
 % --------------------------- ITEM C ---------------------------
 
 %Obtenemos la PMF teorica teniendo en cuenta que el soporte son todos los valores hasta el máximo de eventos.
-
 valores_posibles= 0:max(eventos);
 pmf_teorica = poisspdf(valores_posibles, mu_Nt);
 
