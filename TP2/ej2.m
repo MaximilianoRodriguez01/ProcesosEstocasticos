@@ -36,7 +36,7 @@ bines = ceil(sqrt(M));
 figure(1);
 histogram(eventos, bines, 'Normalization', 'probability', 'EdgeColor', '#020122', 'FaceColor', '#84BC9C');
 title('Histograma de eventos detectados por intervalo');
-subtitle(sprintf('$\\hat{\\mu}_{N(t)} \\approx %.2f, \\hat{\\sigma}^2_{N(t)} \\approx %.2f$', mu_Nt, var_Nt), 'Interpreter', 'latex');
+subtitle(sprintf('$\\hat{\\mu}_{N(t)} \\approx %.2f, ~ \\hat{\\sigma}^2_{N(t)} \\approx %.2f$', mu_Nt, var_Nt), 'Interpreter', 'latex');
 xlabel('Número de eventos por intervalo');
 ylabel('Probabilidad');
 legend('Histograma');
