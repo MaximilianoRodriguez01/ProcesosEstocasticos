@@ -4,12 +4,32 @@ close all
 P = 20;             % Orden del sistema AR
 n_fft = 4096;       % Puntos para las FFTs
 
-[x,Fs] = audioread("Audios/a.wav");
+%Genero un vector de ceros para guardar la informacion de los 9 audios
+%Observo que los vectores del .wav tienen 6667x1 elementos
+x = zeros(6667, 9);
+Fs = 14700;
+
+[x(:,1)] = audioread("Audios/a.wav");
+[x(:,2)] = audioread("Audios/e.wav");
+[x(:,3)] = audioread("Audios/f.wav");
+[x(:,4)] = audioread("Audios/i.wav");
+[x(:,5)] = audioread("Audios/j.wav");
+[x(:,6)] = audioread("Audios/o.wav");
+[x(:,7)] = audioread("Audios/s.wav");
+[x(:,8)] = audioread("Audios/sh.wav");
+[x(:,9)] = audioread("Audios/u.wav");
 x = x';
+ 
+a = zeros(P+1, 9);
+G = zeros(1, 9);
 
-[a,G] = param_ar(x,P); % Estimo los parametros del sistema AR-P
-Ej_2(x, Fs, a, G, n_fft);
 
+for i = 1:9
+    [a(:,i),G(1,i)] = param_ar(x(i,:),P); % Estimo los parametros del sistema AR-P
+    Ej_2(x(i,:), Fs, a(:,i), G(1,i), n_fft);
+end
+
+  
 function f = Ej_2(x, Fs, a, G, n_fft)
     
     [R_X, lags_X] = xcorr(x, 'biased'); % Estimo la autocorrelacion
@@ -20,7 +40,7 @@ function f = Ej_2(x, Fs, a, G, n_fft)
     
     t = linspace(0, 1/Fs*length(x), length(x)); % Eje de tiempo
     f = linspace(-Fs/2, Fs/2, n_fft);           % Eje de frecuencia
-    
+
     % Graficos
     figure();
     subplot(3,1,1);
@@ -46,4 +66,5 @@ function f = Ej_2(x, Fs, a, G, n_fft)
     ylabel('Amplitud [dB]');
     title('PSD');
     legend('Location', 'South', 'Orientation', 'Horizontal');
+
 end
