@@ -5,26 +5,23 @@ P = 20;             % Orden del sistema AR
 n_fft = 4096;       % Puntos para las FFTs
 
 %Genero un vector de ceros para guardar la informacion de los 9 audios
-%Observo que los vectores del .wav tienen 6667x1 elementos
-x = zeros(6667, 9);
+%Observo que los audios tienen un tamaño de 6667 muestras
 Fs = 14700;
 
-[x(:,1)] = audioread("Audios/a.wav");
-[x(:,2)] = audioread("Audios/e.wav");
-[x(:,3)] = audioread("Audios/f.wav");
-[x(:,4)] = audioread("Audios/i.wav");
-[x(:,5)] = audioread("Audios/j.wav");
-[x(:,6)] = audioread("Audios/o.wav");
-[x(:,7)] = audioread("Audios/s.wav");
-[x(:,8)] = audioread("Audios/sh.wav");
-[x(:,9)] = audioread("Audios/u.wav");
+audio_files = dir('Audios/*.wav'); %tomo todos los audios de la carpeta Audios
+num_audios = length(audio_files); %cantidad de audios
+x = zeros(6667, num_audios); 
+
+for k = 1:num_audios
+    x(:,k) = audioread(fullfile(audio_files(k).folder, audio_files(k).name));
+end
 x = x';
  
 a = zeros(P+1, 9);
 G = zeros(1, 9);
 
 
-for i = 1:9
+for i = 1:num_audios
     [a(:,i),G(1,i)] = param_ar(x(i,:),P); % Estimo los parametros del sistema AR-P
     Ej_2(x(i,:), Fs, a(:,i), G(1,i), n_fft);
 end
