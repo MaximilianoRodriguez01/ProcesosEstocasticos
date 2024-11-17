@@ -26,7 +26,7 @@ G = zeros(1, 9);
 
 for i = 1:num_audios
     [a(:,i),G(1,i)] = param_ar(x(i,:),P); % Estimo los parametros del sistema AR-P
-    Ej_2(x(i,:), Fs, a(:,i), G(1,i), n_fft);
+%     Ej_2(x(i,:), Fs, a(:,i), G(1,i), n_fft);
 end
 
 e = x(2,:);
@@ -53,15 +53,15 @@ function Ej_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
     E_n_1000 = zeros(L(3), M(3));
 
     for i = 1:L(1)
-        E_n_10(i,:) = e(1, (i-1)*K(1)+1 : (i-1)*K(1) + M(1)).*v1(:,1);
+        E_n_10(i,:) = e(1, (i-1)*K(1)+1 : (i-1)*K(1) + M(1)).*v1;
     end
 
     for i = 1:L(2)
-        E_n_100(i,:) = e(1, (i-1)*K(2)+1 : (i-1)*K(2) + M(2)).*v2(:,1);
+        E_n_100(i,:) = e(1, (i-1)*K(2)+1 : (i-1)*K(2) + M(2)).*v2;
     end
 
     for i = 1:L(3)
-        E_n_1000(i,:) = e(1, (i-1)*K(3)+1 : (i-1)*K(3) + M(3)).*v3(:,1);
+        E_n_1000(i,:) = e(1, (i-1)*K(3)+1 : (i-1)*K(3) + M(3)).*v3;
     end
 
     S_E_n_10 = zeros(L(1), n_fft);
@@ -69,13 +69,13 @@ function Ej_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
     S_E_n_1000 = zeros(L(3), n_fft);
 
     for i = 1:L(1)
-        S_E_n_10(i,:) = PSD(E_n_10(i,:)*v1(:,1), M(1)*P1, n_fft);
+        S_E_n_10(i,:) = PSD(E_n_10(i,:).*v1, M(1)*P1, n_fft);
     end
     for i = 1:L(2)
-        S_E_n_100(i,:) = PSD(E_n_100(i,:)*v2(:,1), M(2)*P2, n_fft);
+        S_E_n_100(i,:) = PSD(E_n_100(i,:).*v2, M(2)*P2, n_fft);
     end
     for i = 1:L(3)
-        S_E_n_1000(i,:) = PSD(E_n_1000(i,:)*v3(:,1), M(3)*P3, n_fft);
+        S_E_n_1000(i,:) = PSD(E_n_1000(i,:).*v3, M(3)*P3, n_fft);
     end
 
     S_E_n_10_prom = mean(S_E_n_10);
