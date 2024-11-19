@@ -57,6 +57,47 @@ fade = 30;
 
 senal_concatenada = EJ_4B(senales, muestras, num_audios, fade, Fs);
 
+    audiowrite("Audios_sintetizados\senal_concatenada.wav", senal_concatenada, Fs);
+
+
+a_100 = Ej_4B_PITCH_VOCAL(a(:,1), G(1), Fs, muestras, 100);
+e_125 = Ej_4B_PITCH_VOCAL(a(:,2), G(2), Fs, muestras, 125);
+i_150 = Ej_4B_PITCH_VOCAL(a(:,4), G(4), Fs, muestras, 150);
+o_125 = Ej_4B_PITCH_VOCAL(a(:,6), G(6), Fs, muestras, 125);
+u_100 = Ej_4B_PITCH_VOCAL(a(:,9), G(9), Fs, muestras, 100);
+
+audio_nuevo = [a_100; e_125; senales(3,:); i_150; senales(5,:); o_125; senales(7,:); senales(8,:); u_100];
+
+audio_nuevo_concatenado = EJ_4B(audio_nuevo, muestras, num_audios, fade, Fs);
+
+audiowrite("Audios_sintetizados\audio_nuevo_concatenado.wav", audio_nuevo_concatenado, Fs);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function Ej_2(x, Fs, a, G, n_fft)
     
@@ -170,6 +211,9 @@ function Ej_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
 end
 
 
+
+
+
 function senales = Ej_4A(a, G, Fs, n_fft, muestras, pitch, num_fonemas)
 
 senales = zeros(num_fonemas, muestras); % Matriz para guardar las señales
@@ -259,31 +303,62 @@ senales = zeros(num_fonemas, muestras); % Matriz para guardar las señales
 end
 
 function senal_concatenada = EJ_4B(senales, muestras, cantidad_de_fonemas, fade, Fs)
-    largo_senal_concatenada = muestras*cantidad_de_fonemas;
+    % Inicializar las variables
+    largo_senal_concatenada = muestras * cantidad_de_fonemas;
     senal_concatenada = zeros(1, largo_senal_concatenada);
-
     senal_suavizada = zeros(cantidad_de_fonemas, muestras);
-
-    for i = 1:cantidad_de_fonemas, j = 1:muestras:largo_senal_concatenada-muestras;
-        senal_suavizada(i,:) = suavizar_bordes(senales(i,:),fade);
-        senal_concatenada(1, [j:j+(muestras-1)]) = senal_suavizada(i,:);
+    
+    % Suavizar y concatenar las señales
+    for i = 1:cantidad_de_fonemas
+        % Suavizar los bordes de la señal actual
+        senal_suavizada(i, : ) = suavizar_bordes(senales(i, :), fade);
+    
+        % Calcular los índices para la concatenación
+        inicio = (i - 1) * muestras + 1; % Índice inicial
+        fin = inicio + muestras - 1;     % Índice final
+    
+        % Concatenar la señal suavizada
+        senal_concatenada(1, inicio:fin) = senal_suavizada(i, :);
     end
-
-  
-
-
-    % senal_concatenada = [senal_suavizada(1,:) 
-    %                      senal_suavizada(2,:) 
-    %                      senal_suavizada(3,:) 
-    %                      senal_suavizada(4,:) 
-    %                      senal_suavizada(5,:) 
-    %                      senal_suavizada(6,:) 
-    %                      senal_suavizada(7,:) 
-    %                      senal_suavizada(8,:) 
-    %                      senal_suavizada(9,:) ];
-    audiowrite("Audios_sintetizados\senal_concatenada.wav", senal_concatenada, Fs);
-
 end
+
+
+function senales = Ej_4B_PITCH_VOCAL(a, G, Fs, muestras, pitch)
+
+senales = zeros(1, muestras); % Matriz para guardar las señales
+   
+%Genero un tren de pulsos, con el periodo correspondiente
+        
+    muestras_por_periodo = round(Fs / pitch);
+    T = 1/pitch;
+    pulsos = zeros(1, muestras);
+    for j = 1:muestras_por_periodo:muestras
+        pulsos(j) = sqrt(T*Fs);
+    end
+     
+    % Señal sintetizada con filtro LPC 
+    senales(1, :) = filter(G, a, pulsos);
+
+    audiowrite("Audios_sintetizados\a.wav", senales(1,:), Fs);
+end
+
+
+
+function senales = Ej_4B_CONSONANTE(a, G, Fs, muestras)
+
+senales = zeros(1, muestras); % Matriz para guardar las señales
+
+    %Genero un tren de pulsos, con el periodo correspondiente
+        
+    ruido = normrnd(0,1, 1, muestras);
+    
+    % Señal sintetizada con filtro LPC
+    senales(1, :) = filter(G, a, ruido);
+
+    audiowrite("Audios_sintetizados\u.wav", senales(1,:), Fs);
+end
+
+
 
 
 
