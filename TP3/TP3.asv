@@ -195,7 +195,7 @@ function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
 
         S_U = PSD(pulsos, muestras, n_fft);
 
-        S_teorica = abs(H).^2;
+        S_teorica = abs(H).^2 .* S_U';
         S_estimada = PSD(senales(i, :), muestras, n_fft);
 
         % Graficos
@@ -210,14 +210,4 @@ function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
         legend('Location', 'Best');
         grid on;
     end
-
-    audiowrite("Audios_sintetizados\a.wav", senales(1,:), Fs);
-    audiowrite("Audios_sintetizados\e.wav", senales(2,:), Fs);
-    audiowrite("Audios_sintetizados\f.wav", senales(3,:), Fs);
-    audiowrite("Audios_sintetizados\i.wav", senales(4,:), Fs);
-    audiowrite("Audios_sintetizados\j.wav", senales(5,:), Fs);
-    audiowrite("Audios_sintetizados\o.wav", senales(6,:), Fs);
-    audiowrite("Audios_sintetizados\s.wav", senales(7,:), Fs);
-    audiowrite("Audios_sintetizados\sh.wav", senales(8,:), Fs);
-    audiowrite("Audios_sintetizados\u.wav", senales(9,:), Fs);
 end
