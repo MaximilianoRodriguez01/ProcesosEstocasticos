@@ -47,16 +47,15 @@ v3 = v3';
 % Por enunciado
 duracion = 0.5;
 pitch_ = 100;
-num_fonemas = 9;
 muestras = round(duracion * Fs); % Cant de muestras
-senales = zeros(num_fonemas, muestras); % Matriz para guardar las señales
 
-
-Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch_);
+senales = Ej_4A(a, G, Fs, n_fft, muestras, pitch_, num_audios);
 
 audiowrite("Audios_sintetizados\a_sintetizada.wav", senales(1,:), Fs);
 
+fade = 30;
 
+senal_concatenada = EJ_4B(senales, muestras, num_audios, fade, Fs);
 
 
 function Ej_2(x, Fs, a, G, n_fft)
@@ -171,9 +170,14 @@ function Ej_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
 end
 
 
-function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
+function senales = Ej_4A(a, G, Fs, n_fft, muestras, pitch, num_fonemas)
 
-    for i = 1:num_fonemas
+senales = zeros(num_fonemas, muestras); % Matriz para guardar las señales
+    
+
+% PARA LAS VOCALES
+
+    for i = [1 2 4 6 9]
         %Genero un tren de pulsos, con el periodo correspondiente
         
         muestras_por_periodo = round(Fs / pitch);
@@ -183,7 +187,7 @@ function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
             pulsos(j) = sqrt(T*Fs);
         end
      
-        % Señal sintetizada con filtro LPC PREGUNTARLE A PIPA
+        % Señal sintetizada con filtro LPC 
         senales(i, :) = filter(G(i), a(:, i)', pulsos);
 
         % Calculo PSD teórica y sintetizada
@@ -193,8 +197,40 @@ function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
         
         
 
-        S_U = PSD(pulsos, muestras, n_fft);
+        %S_U = PSD(pulsos, muestras, n_fft);
 
+        S_teorica = abs(H).^2;
+        S_estimada = PSD(senales(i, :), muestras, n_fft);
+
+        % Graficos
+        figure;
+        plot(f, 20*log10(S_teorica), 'LineWidth', 1.5, 'DisplayName', 'Teórica');
+        hold on;
+        plot(f, 20*log10(S_estimada), '--', 'LineWidth', 1.2, 'DisplayName', 'Sintetizada');
+        xlabel('Frecuencia [Hz]');
+        ylabel('Amplitud [dB]');
+        title(['Fonema ' num2str(i)]);
+        xlim([0 Fs/2]);
+        legend('Location', 'Best');
+        grid on;
+    end
+
+    % PARA LAS CONSONANTES
+
+    for i = [3 5 7 8]
+        %Genero un tren de pulsos, con el periodo correspondiente
+        
+        ruido = normrnd(0,1, 1, muestras);
+     
+
+        % Señal sintetizada con filtro LPC
+        senales(i, :) = filter(G(i), a(:, i)', ruido);
+
+        % Calculo PSD teórica y sintetizada
+        H = freqz(G(i), a(:, i), n_fft, "whole", Fs);
+
+        f = linspace(-Fs/2, Fs/2, n_fft);
+      
         S_teorica = abs(H).^2;
         S_estimada = PSD(senales(i, :), muestras, n_fft);
 
@@ -221,3 +257,33 @@ function Ej_4_A(a, G, Fs, n_fft, senales, num_fonemas, muestras, pitch)
     audiowrite("Audios_sintetizados\sh.wav", senales(8,:), Fs);
     audiowrite("Audios_sintetizados\u.wav", senales(9,:), Fs);
 end
+
+function senal_concatenada = EJ_4B(senales, muestras, cantidad_de_fonemas, fade, Fs)
+    largo_senal_concatenada = muestras*cantidad_de_fonemas;
+    senal_concatenada = zeros(1, largo_senal_concatenada);
+
+    senal_suavizada = zeros(cantidad_de_fonemas, muestras);
+
+    for i = 1:cantidad_de_fonemas, j = 1:muestras:largo_senal_concatenada-muestras;
+        senal_suavizada(i,:) = suavizar_bordes(senales(i,:),fade);
+        senal_concatenada(1, [j:j+(muestras-1)]) = senal_suavizada(i,:);
+    end
+
+  
+
+
+    % senal_concatenada = [senal_suavizada(1,:) 
+    %                      senal_suavizada(2,:) 
+    %                      senal_suavizada(3,:) 
+    %                      senal_suavizada(4,:) 
+    %                      senal_suavizada(5,:) 
+    %                      senal_suavizada(6,:) 
+    %                      senal_suavizada(7,:) 
+    %                      senal_suavizada(8,:) 
+    %                      senal_suavizada(9,:) ];
+    audiowrite("Audios_sintetizados\senal_concatenada.wav", senal_concatenada, Fs);
+
+end
+
+
+
