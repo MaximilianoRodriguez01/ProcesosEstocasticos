@@ -154,3 +154,42 @@ function f = Ej_2(x, Fs, a, G, n_fft)
 
 end
 
+function Ej_4_A(a, G, Fs, n_fft)
+
+    % Por enunciado
+    duracion = 0.5;
+    pitch = 100;
+
+    num_fonemas = size(a, 2);
+    muestras = round(duracion * Fs); % Cant de muestras
+    senales = zeros(num_fonemas, muestras); % Matriz para guardar las señales
+
+    for i = 1:num_fonemas
+        %Genero un tren de pulsos, con el periodo correspondiente
+        periodo = round(Fs / pitch);
+        pulsos = zeros(1, muestras);
+        for j = 1:periodo:muestras
+            pulsos(j) = 1;
+        end
+        
+
+        % Señal sintetizada con filtro LPC PREGUNTARLE A PIPA
+        senales(i, :) = filter(sqrt(G(i)), a(:, i)', pulsos);
+
+        % Calculo PSD teórica y sintetizada
+        [H, f] = freqz(sqrt(G(i)), a(:, i)', n_fft, Fs);
+        S_teorica = abs(H).^2;
+        [S_estimada, f_est] = periodogram(senales(i, :), [], n_fft, Fs);
+
+        % Graficos
+        figure;
+        plot(f, 10*log10(S_teorica), 'LineWidth', 1.5, 'DisplayName', 'Teórica');
+        hold on;
+        plot(f_est, 10*log10(S_estimada), '--', 'LineWidth', 1.2, 'DisplayName', 'Sintetizada');
+        xlabel('Frecuencia [Hz]');
+        ylabel('Amplitud [dB]');
+        title(['Fonema ' num2str(i)]);
+        legend('Location', 'Best');
+        grid on;
+    end
+end
