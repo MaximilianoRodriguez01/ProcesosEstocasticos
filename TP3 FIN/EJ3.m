@@ -22,21 +22,33 @@ v1 = hamming(M(1));
 v2 = hamming(M(2));
 v3 = hamming(M(3));
 
+% Las traspongo para tenerlas como vector fila
 v1 = v1';
 v2 = v2';
 v3 = v3';
 
+% La funcion EJ3 realiza lo pedido en la consigna para cada letra
 EJ_3(e, Fs, a(:,2), G(1,2), n_fft, M, K, L, v1, v2, v3);
 EJ_3(sh, Fs, a(:,8), G(1,8), n_fft, M, K, L, v1, v2, v3);
 
+% Definicion de la funcion EJ3
 function EJ_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
+    % Realizo el promedio del modulo al cuadrado
+    % de las 3 ventanas de Hamming
     P1 = mean(abs(v1).^2);
     P2 = mean(abs(v2).^2);
     P3 = mean(abs(v3).^2);
 
+    % Inicializo los segmentos
     E_n_10 = zeros(L(1), M(1));
     E_n_100 = zeros(L(2), M(2));
     E_n_1000 = zeros(L(3), M(3));
+
+    % Para cada segmento i-ésimo del proceso e(n)
+    % tengo que para el largo de ventana M
+    % e_i(n) = e((i-1)*K+n)
+    % con n de 1 hasta M e i de 1 hasta L
+    % y multiplico por la respectiva ventana
 
     for i = 1:L(1)
         E_n_10(i,:) = e(1, (i-1)*K(1)+1 : (i-1)*K(1) + M(1)).*v1;
@@ -50,9 +62,13 @@ function EJ_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
         E_n_1000(i,:) = e(1, (i-1)*K(3)+1 : (i-1)*K(3) + M(3)).*v3;
     end
 
+    % Inicializo los periodogramas del i-esimo segmento
+
     S_E_n_10 = zeros(L(1), n_fft);
     S_E_n_100 = zeros(L(2), n_fft);
     S_E_n_1000 = zeros(L(3), n_fft);
+
+    % Realizo la PSD para cada segmento
 
     for i = 1:L(1)
         S_E_n_10(i, :) = PSD(E_n_10(i,:), M(1) * P1, n_fft);
@@ -63,6 +79,9 @@ function EJ_3(e, Fs, a, G, n_fft, M, K, L, v1, v2, v3)
     for i = 1:L(3)
         S_E_n_1000(i, :) = PSD(E_n_1000(i,:), M(3) * P3, n_fft);
     end
+
+    % Calculo mediante el estimador de Welch la PSD
+    % Este estimador es el promedio de las PSD de los segmentos
 
     S_E_n_10_prom = mean(S_E_n_10);
     S_E_n_100_prom = mean(S_E_n_100);
